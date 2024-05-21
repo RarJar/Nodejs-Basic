@@ -3,7 +3,29 @@ const fs = require("fs");
 
 const server = http.createServer((req, res) => {
   res.setHeader("Content-type", "text/html");
-  fs.readFile("./views/index.html", (err, data) => {
+
+  let filename;
+
+  switch (req.url) {
+    case "/":
+      filename = "index.html";
+      req.statusCode = 200;
+      break;
+    case "/about":
+      filename = "about.html";
+      req.statusCode = 200;
+      break;
+    case "/about-us":
+      req.setHeader("Location", "/about");
+      req.statusCode = 301;
+      break;
+    default:
+      filename = "404.html";
+      req.statusCode = 404;
+      break;
+  }
+
+  fs.readFile("./views/" + filename, (err, data) => {
     if (err) {
       res.end();
     } else {
