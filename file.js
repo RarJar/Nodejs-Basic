@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 // Read File
-fs.readFile("./docs/file1.txt", (data, err) => {
+fs.readFile("./docs/file1.txt", (err, data) => {
   if (data) {
     console.log(data);
   }
