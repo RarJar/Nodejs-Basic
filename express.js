@@ -1,14 +1,24 @@
 const express = require("express");
 const route = express();
+const mongoose = require("mongoose");
 
 route.set("views", "./views");
 route.set("view engine", "ejs");
-
 route.use(express.static("public"));
 
-// route.get("/", (req, res) => {
-//   res.sendFile("./views/index.html", { root: __dirname });
-// });
+let mongoUrl =
+  "mongodb+srv://yarzarminkhant2003:LPT1500%40love@cluster0.6253mxi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose
+  .connect(mongoUrl)
+  .then(() => {
+    route.listen(8000, () => {
+      console.log("connected");
+    });
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 route.get("/", (req, res) => {
   res.render("index", {
@@ -28,4 +38,6 @@ route.use((req, res) => {
   });
 });
 
-route.listen(3000);
+// route.get("/", (req, res) => {
+//   res.sendFile("./views/index.html", { root: __dirname });
+// });
