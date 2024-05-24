@@ -1,5 +1,12 @@
 <%- include('./components/header') %>
 <%- include('./components/navbar') %>
 <h1>Home Page</h1>
+
+<% blogs.forEach(blog => { %>
+    <ul>
+        <li><%= blog.title %></li>
+        <li><%= blog.description %></li>
+    </ul>
+<% }) %>
 <%- include('./components/footer') %>
 
