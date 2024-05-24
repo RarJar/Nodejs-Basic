@@ -1,0 +1,7 @@
+<h1>Update Page</h1>
+<form action="/blog/update" method="POST">
+    <input name="id" hidden value="<%= blog._id %>">
+    <input name="title" value="<%= blog.title %>">
+    <textarea name="description"><%= blog.description %></textarea>
+    <button type="submit">Update</button>
+</form>

@@ -49,7 +49,7 @@ route.post("/blog/store", async (req, res) => {
   res.redirect("/");
 });
 
-route.get("/blog/:id", async (req, res,next) => {
+route.get("/blog/:id", async (req, res, next) => {
   try {
     let blog = await Blog.findById(req.params.id);
     res.render("show", {
@@ -59,6 +59,24 @@ route.get("/blog/:id", async (req, res,next) => {
   } catch (error) {
     next();
   }
+});
+
+route.get("/blog/:id/edit", async (req, res, next) => {
+  try {
+    let blog = await Blog.findById(req.params.id);
+    res.render("edit", {
+      blog,
+      title: "Edit Page",
+    });
+  } catch (error) {
+    next();
+  }
+});
+
+route.post("/blog/update", async (req, res) => {
+  let { id, title, description } = req.body;
+  await Blog.findByIdAndUpdate(id, { title, description }, { new: true });
+  res.redirect("/");
 });
 
 route.post("/blog/:id/destroy", async (req, res, next) => {

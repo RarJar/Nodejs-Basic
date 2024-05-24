@@ -5,7 +5,8 @@
         <li><%= blog.title %></li>
         <li><%= blog.description %></li>
         <a href="/blog/<%= blog._id %>">Read</a>
-        
+        <a href="/blog/<%= blog._id %>/edit">Edit</a>
+
         <form action="/blog/<%= blog._id %>/destroy" method="POST">
             <button type="submit">Delete</button>
         </form>
