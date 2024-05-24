@@ -1,10 +1,13 @@
 const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
 const route = express();
 const mongoose = require("mongoose");
 const Blog = require("./models/Blog.js");
 
 route.set("views", "./views");
 route.set("view engine", "ejs");
+route.use(expressLayouts);
+route.set("layout", "layouts/master");
 route.use(express.static("public"));
 
 const mongoUrl =
