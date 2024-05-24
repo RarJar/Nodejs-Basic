@@ -9,7 +9,7 @@ route.set("view engine", "ejs");
 route.use(expressLayouts);
 route.set("layout", "layouts/master");
 route.use(express.static("public"));
-route.use(express.urlencoded({extended : true})); //for post request data middleware
+route.use(express.urlencoded({ extended: true })); //for post request data middleware
 
 const mongoUrl =
   "mongodb+srv://yarzarminkhant2003:LPT1500%40love@cluster0.6253mxi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -40,7 +40,7 @@ route.get("/blog/create", (req, res) => {
 });
 
 route.post("/blog/store", async (req, res) => {
-  let {title,description} = req.body;
+  let { title, description } = req.body;
   let blog = new Blog({
     title,
     description,
@@ -49,9 +49,16 @@ route.post("/blog/store", async (req, res) => {
   res.redirect("/");
 });
 
-route.get("/show", async (req, res) => {
-  let blog = await Blog.findById("664e1e70ec60ba2a61645d65");
-  res.json(blog);
+route.get("/blog/:id", async (req, res,next) => {
+  try {
+    let blog = await Blog.findById(req.params.id);
+    res.render("show", {
+      blog,
+      title: "Show Page",
+    });
+  } catch (error) {
+    next();
+  }
 });
 
 route.use((req, res) => {
