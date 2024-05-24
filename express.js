@@ -61,6 +61,15 @@ route.get("/blog/:id", async (req, res,next) => {
   }
 });
 
+route.post("/blog/:id/destroy", async (req, res, next) => {
+  try {
+    let blog = await Blog.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    next();
+  }
+});
+
 route.use((req, res) => {
   res.status(404).render("404", {
     title: "404 Page",
